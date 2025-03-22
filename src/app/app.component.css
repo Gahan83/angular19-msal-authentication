@@ -1,0 +1,26 @@
+.header {
+  background-color: #e3f7ef;
+  padding: 1rem;
+}
+
+.custom-btn {
+  background-color: #1f937e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-btn:hover {
+  background-color: #167d6a;
+}
+
+.logo {
+  margin-bottom: 0;
+}
+
+.bi-gear {
+  font-size: 1.2rem;
+  color: #1f937e;
+}

@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { MsalService } from '@azure/msal-angular';
-import { AuthenticationResult } from '@azure/msal-browser';
+import { AuthenticationResult, InteractionRequiredAuthError } from '@azure/msal-browser';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet,CommonModule,RouterLink,HttpClientModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private msalService: MsalService) {}
+
+  apiResponse:string | undefined;
+  constructor(private readonly msalService: MsalService, private httpClient:HttpClient) {}
 
   ngOnInit(): void {
     this.initializeMsal();
@@ -44,4 +47,18 @@ export class AppComponent implements OnInit {
   public logout(): void {
     this.msalService.logout();
   }
+
+  callProfile()
+  {
+    this.httpClient.get('https://graph.microsoft.com/v1.0/me').subscribe(res=>{
+      this.apiResponse=JSON.stringify(res);
+    })
+  }
+  callMessage()
+  {
+    this.httpClient.get('https://graph.microsoft.com/v1.0/me/messages').subscribe(res1=>{
+      this.apiResponse=JSON.stringify(res1);
+    })
+  }
+
 }
